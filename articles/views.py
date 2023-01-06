@@ -32,3 +32,14 @@ def create(request):
     }
 
     return render(request, "articles/create.html", context)
+
+
+def detail(request, pk):
+
+    article = Article.objects.get(pk=pk)
+
+    context = {
+        "article": article,
+    }
+
+    return render(request, "articles/detail.html", context)

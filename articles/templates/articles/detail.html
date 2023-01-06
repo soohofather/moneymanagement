@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-5">
+  <h1 class='text-center my-3'>상세 페이지</h1><hr>
+  내용: {{ article.title }}<br>
+  메모 : {{ article.content }}<br>
+  수입 : {{ article.incoming }}<br>
+  지출 : {{ article.spending }}<br>
+  작성시간 : {{ article.updated_at }}<br>
+  수정 삭제
+</div>
+
+{% endblock content %}
