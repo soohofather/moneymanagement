@@ -7,7 +7,7 @@
   <a href="{% url 'articles:create' %}">글쓰기</a>
   <hr>
   <di class="row d-flex justify-content-center">
-    <table class="table">
+    <table class="table table-hover">
       <thead class="table-info">
         <tr>
           <th scope="col">pk</th>
@@ -18,7 +18,7 @@
       </thead>
       {% for article in articles %}
       <tbody>
-        <tr>
+        <tr onclick='location.href="{% url 'articles:detail' article.pk %}"' style='cursor: pointer;'>
           <th scope="row">{{ article.pk }}</th>
           <td>{{ article.title }}</td>
           <td>{{ article.incoming }}</td>
