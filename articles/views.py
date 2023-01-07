@@ -7,13 +7,17 @@ from .forms import ArticleForm
 
 def index(request):
 
-    articles = Article.objects.all()
+    if request.user.is_authenticated:
+        articles = Article.objects.filter(user=request.user)
 
-    context = {
-        "articles": articles,
-    }
+        context = {
+            "articles": articles,
+        }
 
-    return render(request, "articles/index.html", context)
+        return render(request, "articles/index.html", context)
+
+    else:
+        return render(request, "articles/index.html")
 
 
 def create(request):
@@ -21,7 +25,8 @@ def create(request):
     if request.method == "POST":
         article_form = ArticleForm(request.POST)
         if article_form.is_valid():
-            article = article_form.save()
+            article = article_form.save(commit=False)
+            article.user = request.user
             article.save()
             return redirect("articles:index")
     else:
