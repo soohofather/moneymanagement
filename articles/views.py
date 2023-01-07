@@ -43,3 +43,31 @@ def detail(request, pk):
     }
 
     return render(request, "articles/detail.html", context)
+
+
+def delete(request, pk):
+
+    article = Article.objects.get(pk=pk)
+
+    article.delete()
+
+    return redirect("articles:index")
+
+
+def update(request, pk):
+
+    if request.method == "POST":
+        article = Article.objects.get(pk=pk)
+        article_form = ArticleForm(request.POST, instance=article)
+        if article_form.is_valid():
+            article_form.save()
+            return redirect("articles:detail", pk)
+    else:
+        review = Article.objects.get(pk=pk)
+        article_form = ArticleForm(instance=review)
+
+    context = {
+        "article_form": article_form,
+    }
+
+    return render(request, "articles/update.html", context=context)
