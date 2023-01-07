@@ -19,8 +19,24 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <a class="navbar-brand" href=""><i class="bi bi-twitter text-success fs-1"></i></a>
-      <span>서비스를 이용하시려면 <a href="{% url 'accounts:signup' %}">회원가입</a> 또는 <a href="">로그인</a>을 해주세요. 😎</span>
+      {% if request.user.is_authenticated %}
+      <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarSupportedContent">
+        <div>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="{% url 'articles:index' %}">전체보기</a>
+            </li>
+            <li class="navb-item">
+              <a class="nav-link active" href="{% url 'articles:create' %}"
+                style="font-size:16px; font-weight: 400;">가계부작성</a>
+            </li>
+          </ul>
+        </div>
+        <span>{{ request.user.full_name }}님, 회원정보 <a href="{% url 'accounts:logout' %}">로그아웃</a></span>
+      </div>
+      {% else %}
+        <span>서비스를 이용하시려면 <a href="{% url 'accounts:signup' %}">회원가입</a> 또는 <a href="{% url 'accounts:login' %}">로그인</a>을 해주세요. 😎</span>
+      {% endif %}
       <button class="navbar-toggler btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list"></i>
       </button>

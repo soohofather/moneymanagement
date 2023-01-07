@@ -4,7 +4,6 @@
 <div class="container my-5">
 
   <h1>인덱스페이지</h1>
-  <a href="{% url 'articles:create' %}">글쓰기</a>
   <hr>
   <di class="row d-flex justify-content-center">
     <table class="table table-hover">
@@ -16,16 +15,18 @@
           <th scope="col">지출</th>
         </tr>
       </thead>
-      {% for article in articles %}
-      <tbody>
-        <tr onclick='location.href="{% url 'articles:detail' article.pk %}"' style='cursor: pointer;'>
-          <th scope="row">{{ article.pk }}</th>
-          <td>{{ article.title }}</td>
-          <td>{{ article.incoming }}</td>
-          <td>{{ article.spending }}</td>
-        </tr>
-      </tbody>
-      {% endfor %}
+      {% if request.user.is_authenticated %}
+        {% for article in articles %}
+        <tbody>
+          <tr onclick='location.href="{% url 'articles:detail' article.pk %}"' style='cursor: pointer;'>
+            <th scope="row">{{ article.pk }}</th>
+            <td>{{ article.title }}</td>
+            <td>{{ article.incoming }}</td>
+            <td>{{ article.spending }}</td>
+          </tr>
+        </tbody>
+        {% endfor %}
+      {% endif %}
     </table>
   </div>
 
