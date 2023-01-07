@@ -32,10 +32,10 @@
             </li>
           </ul>
         </div>
-        <span>{{ request.user.full_name }}님, 회원정보 <a href="{% url 'accounts:logout' %}">로그아웃</a></span>
+        <span>{{ request.user.full_name }}님, <a href="{% url 'accounts:detail' %}">회원정보</a> <a href="{% url 'accounts:logout' %}">로그아웃</a></span>
       </div>
       {% else %}
-        <span>서비스를 이용하시려면 <a href="{% url 'accounts:signup' %}">회원가입</a> 또는 <a href="{% url 'accounts:login' %}">로그인</a>을 해주세요. 😎</span>
+        <span>서비스를 이용하시려면 <a href="{% url 'accounts:signup' %}">회원가입</a> 또는 <a href="{% url 'accounts:login' %}">로그인</a>을 해주세요.</span>
       {% endif %}
       <button class="navbar-toggler btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <i class="bi bi-list"></i>
