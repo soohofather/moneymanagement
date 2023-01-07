@@ -8,10 +8,23 @@ from .forms import ArticleForm
 def index(request):
 
     if request.user.is_authenticated:
-        articles = Article.objects.filter(user=request.user)
+
+        articles = Article.objects.filter(user=request.user).order_by("-date")
+
+        total_incoming = 0
+        total_spending = 0
+
+        for article in articles:
+            total_incoming += article.incoming
+            total_spending += article.spending
+
+        budget = total_incoming - total_spending
 
         context = {
             "articles": articles,
+            "total_incoming": total_incoming,
+            "total_spending": total_spending,
+            "budget": budget,
         }
 
         return render(request, "articles/index.html", context)
